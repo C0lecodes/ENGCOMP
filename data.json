@@ -1,0 +1,94 @@
+{
+  "devices": [
+    {
+      "id": "PILL-001",
+      "patient": "Margaret Wilson",
+      "lastSeen": 1787960824119,
+      "online": true
+    }
+  ],
+  "medications": [
+    {
+      "id": "med-1",
+      "deviceId": "PILL-001",
+      "name": "Donepezil",
+      "strength": "5 mg",
+      "stock": 7,
+      "lowAt": 10,
+      "scheduledHour": 9
+    },
+    {
+      "id": "med-2",
+      "deviceId": "PILL-001",
+      "name": "Vitamin D",
+      "strength": "1,000 IU",
+      "stock": 21,
+      "lowAt": 7,
+      "scheduledHour": 9
+    },
+    {
+      "id": "med-3",
+      "deviceId": "PILL-001",
+      "name": "Paracetamol",
+      "strength": "500 mg",
+      "stock": 19,
+      "lowAt": 5,
+      "scheduledHour": 12
+    }
+  ],
+  "doses": [
+    {
+      "id": "dose-1",
+      "deviceId": "PILL-001",
+      "medicationId": "med-1",
+      "dueAt": 1787960773088,
+      "status": "dispensed",
+      "dispensedAt": 1787960780941
+    },
+    {
+      "id": "dose-2",
+      "deviceId": "PILL-001",
+      "medicationId": "med-2",
+      "dueAt": 1787960773088,
+      "status": "dispensed",
+      "dispensedAt": 1787960791160
+    },
+    {
+      "id": "dose-1787960836168-0c2e",
+      "deviceId": "PILL-001",
+      "medicationId": "med-3",
+      "dueAt": 1787960820000,
+      "status": "dispensed",
+      "dispensedAt": 1787960842073
+    }
+  ],
+  "alerts": [
+    {
+      "id": "alert-1787960173089-f407",
+      "type": "low-stock",
+      "message": "Low stock: Donepezil has 8 doses remaining.",
+      "deviceId": "PILL-001",
+      "medicationId": "med-1",
+      "createdAt": 1787960173089,
+      "resolved": false
+    }
+  ],
+  "alertSettings": {
+    "browser": true,
+    "email": true,
+    "sms": false,
+    "emailAddress": "care.team@example.test",
+    "phoneNumber": "+64 21 000 0000"
+  },
+  "outbox": [
+    {
+      "id": "delivery-1787960173089-060e",
+      "alertId": "alert-1787960173089-f407",
+      "channel": "email",
+      "destination": "care.team@example.test",
+      "message": "Low stock: Donepezil has 8 doses remaining.",
+      "createdAt": 1787960173089,
+      "status": "demo-queued"
+    }
+  ]
+}

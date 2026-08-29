@@ -1,0 +1,263 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>PillPath Clinical Portal</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+<div class="app-shell">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="brand-mark">+</span>
+            <span>PillPath</span>
+        </div>
+
+        <p class="product">Clinical portal</p>
+
+        <nav>
+            <a class="nav active" data-view="overview" href="#overview">
+                ▦ <span>Overview</span>
+            </a>
+
+            <a class="nav" data-view="schedule" href="#schedule">
+                ◷ <span>Medication schedule</span>
+            </a>
+
+            <a class="nav" data-view="inventory" href="#inventory">
+                ▤ <span>Inventory</span>
+            </a>
+
+            <a class="nav" data-view="alerts" href="#alerts">
+                ! <span>Clinical alerts <b id="nav-alert-count"></b></span>
+            </a>
+        </nav>
+
+        <div class="secure">
+            ●
+            <span>
+                <b>Secure session</b>
+                <small>Demo environment</small>
+            </span>
+        </div>
+    </aside>
+
+    <div class="workspace">
+
+        <header class="topbar">
+            <div>
+                Care management <span>/</span> Patient overview
+            </div>
+
+            <div class="top-actions">
+                <span class="sync">● System connected</span>
+                <button id="reset" class="link-button">
+                    Reset demonstration
+                </button>
+                <span class="profile">CW</span>
+            </div>
+        </header>
+
+        <main id="overview">
+
+            <section class="patient-banner">
+                <div class="avatar">MW</div>
+
+                <div>
+                    <p class="label">Patient record</p>
+                    <h1 id="patient-name">Margaret Wilson</h1>
+
+                    <div class="patient-meta">
+                        NHI: DEMO-0021
+                        <span>•</span>
+                        Medication support plan
+                        <span>•</span>
+                        Dementia support care team
+                    </div>
+                </div>
+
+                <div class="device-status" id="device"></div>
+            </section>
+
+            <section class="summary">
+                <div>
+                    <span>Medication adherence</span>
+                    <strong id="adherence">—</strong>
+                    <small>Today</small>
+                </div>
+
+                <div>
+                    <span>Pending doses</span>
+                    <strong id="pending-total">—</strong>
+                    <small>Requires patient action</small>
+                </div>
+
+                <div>
+                    <span>Active alerts</span>
+                    <strong id="alert-total">—</strong>
+                    <small>Care team review</small>
+                </div>
+
+                <div>
+                    <span>Device connection</span>
+                    <strong id="connection">—</strong>
+                    <small>Current status</small>
+                </div>
+            </section>
+
+            <div class="notice">
+                <b>i</b>
+                <p>
+                    <strong>Clinical note:</strong>
+                    “Dispensed” records a device action; it does not confirm the medication was taken.
+                </p>
+            </div>
+
+            <section class="content-grid">
+
+                <article class="card" id="schedule">
+                    <div class="card-head">
+                        <div>
+                            <p class="label">Administration record</p>
+                            <h2>Today's medication schedule</h2>
+                            <p>Scheduled doses and device-reported dispensing events.</p>
+                        </div>
+
+                        <button id="add-dose" class="primary">
+                            + Add scheduled dose
+                        </button>
+                    </div>
+
+                    <div class="thead doses">
+                        <span>Medication</span>
+                        <span>Due</span>
+                        <span>Administration status</span>
+                        <span>Recorded event</span>
+                    </div>
+
+                    <div id="doses"></div>
+                </article>
+
+                <aside class="card alerts-card" id="alerts">
+                    <div class="card-head">
+                        <div>
+                            <p class="label">Attention required</p>
+                            <h2>Clinical alerts</h2>
+                        </div>
+
+                        <button id="test-alert" class="secondary">
+                            Send test alert
+                        </button>
+                    </div>
+
+                    <div id="alerts-list"></div>
+
+                    <div class="alert-settings">
+                        <p class="label">Notification delivery</p>
+
+                        <label>
+                            <input id="browser-enabled" type="checkbox">
+                            Browser push notification
+                        </label>
+
+                        <label>
+                            <input id="email-enabled" type="checkbox">
+                            Email notification (demo)
+                        </label>
+
+                        <input
+                            id="email-address"
+                            type="email"
+                            placeholder="Care-team email"
+                        >
+
+                        <label>
+                            <input id="sms-enabled" type="checkbox">
+                            SMS notification (demo)
+                        </label>
+
+                        <input
+                            id="phone-number"
+                            type="tel"
+                            placeholder="Mobile number"
+                        >
+
+                        <button id="save-alert-settings" class="update">
+                            Save notification settings
+                        </button>
+
+                        <p id="delivery-status" class="delivery-status"></p>
+                    </div>
+
+                    <div class="escalation">
+                        <b>Escalation pathway</b>
+                        <p>
+                            Notify the nominated carer first. Follow the medication support plan if a dose is missed.
+                        </p>
+                    </div>
+                </aside>
+
+                <article class="card inventory" id="inventory">
+                    <div class="card-head">
+                        <div>
+                            <p class="label">Device stock record</p>
+                            <h2>Medication inventory</h2>
+                            <p>Update this record after the dispenser is refilled.</p>
+                        </div>
+                    </div>
+
+                    <div class="thead stock">
+                        <span>Medication</span>
+                        <span>Available doses</span>
+                        <span>Refill threshold</span>
+                        <span></span>
+                    </div>
+
+                    <div id="medications"></div>
+                </article>
+
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<dialog id="dialog">
+    <form method="dialog" id="dose-form">
+
+        <p class="label">New schedule entry</p>
+        <h2>Add a scheduled dose</h2>
+
+        <label>
+            Medication
+            <select id="medication"></select>
+        </label>
+
+        <label>
+            Due time
+            <input id="due" type="datetime-local" required>
+        </label>
+
+        <menu>
+            <!-- IMPORTANT: This is now type="button", so it cannot submit the form -->
+            <button type="button" id="cancel-dose" class="secondary">
+                Cancel
+            </button>
+
+            <!-- This is the only button that submits the form -->
+            <button type="submit" class="primary">
+                Save dose
+            </button>
+        </menu>
+
+    </form>
+</dialog>
+
+<script src="/app.js"></script>
+
+</body>
+</html>
